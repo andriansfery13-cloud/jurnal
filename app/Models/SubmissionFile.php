@@ -1,0 +1,11 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class SubmissionFile extends Model
+{
+    protected $fillable = ['submission_id', 'type', 'file_path', 'original_name', 'mime_type', 'file_size', 'version'];
+    public function submission() { return $this->belongsTo(Submission::class); }
+}
