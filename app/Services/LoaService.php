@@ -62,7 +62,7 @@ class LoaService
             ['submission_id' => $submission->id],
             [
                 'certificate_number' => $certificateNumber,
-                'qr_code' => $qrCodeSvg,
+                'qr_code' => 'svg_rendered_in_pdf',
                 'pdf_path' => $filename,
                 'signed_by' => $editorName
             ]
