@@ -25,6 +25,7 @@ class SettingController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'publisher' => 'required|string|max:255',
+            'description' => 'nullable|string',
             'editor_in_chief_name' => 'required|string|max:255',
             'editor_signature' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'sinta_rank' => 'nullable|integer|min:0|max:6',
@@ -63,6 +64,7 @@ class SettingController extends Controller
 
         $journal->name = $request->name;
         $journal->publisher = $request->publisher;
+        $journal->description = $request->description;
         $journal->settings = $settings;
         $journal->save();
 

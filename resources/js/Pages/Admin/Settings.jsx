@@ -17,6 +17,7 @@ export default function Settings({ journal }) {
     const { data, setData, post, processing, errors, recentlySuccessful } = useForm({
         name: journal.name || '',
         publisher: journal.publisher || '',
+        description: journal.description || '',
         editor_in_chief_name: journal.settings?.editor_in_chief_name || '',
         sinta_rank: journal.settings?.sinta_rank || 0,
         smtp_host: journal.settings?.smtp_host || '',
@@ -87,6 +88,18 @@ export default function Settings({ journal }) {
                                     placeholder="e.g. Universitas Indonesia Press"
                                     required
                                 />
+
+                                <div className="md:col-span-2">
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">Journal Description</label>
+                                    <textarea
+                                        value={data.description}
+                                        onChange={e => setData('description', e.target.value)}
+                                        rows="4"
+                                        className="input-premium w-full"
+                                        placeholder="Enter the journal description to be displayed on the landing page..."
+                                    ></textarea>
+                                    {errors.description && <p className="mt-1 text-sm text-red-400">{errors.description}</p>}
+                                </div>
 
                                 <div className="space-y-1.5">
                                     <label className="block text-sm font-medium text-gray-300">SINTA Accreditation Level</label>
