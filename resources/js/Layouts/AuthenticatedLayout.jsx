@@ -11,7 +11,7 @@ import {
 import { BookOpenIcon as BookOpenSolid } from '@heroicons/react/24/solid';
 
 export default function AuthenticatedLayout({ children, title }) {
-    const { auth } = usePage().props;
+    const { auth, journal } = usePage().props;
     const { isDark, toggle } = useTheme();
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const user = auth?.user;
@@ -65,7 +65,7 @@ export default function AuthenticatedLayout({ children, title }) {
                                 <BookOpenSolid className="w-6 h-6 text-navy-950" />
                             </div>
                             <div>
-                                <h1 className="text-base font-bold text-white">Jurnal Ilmiah</h1>
+                                <h1 className="text-base font-bold text-white">{journal?.name || 'Jurnal Ilmiah'}</h1>
                                 <p className="text-[10px] text-gray-500 uppercase tracking-widest">Dashboard</p>
                             </div>
                         </Link>

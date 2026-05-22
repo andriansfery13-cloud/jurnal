@@ -28,11 +28,29 @@ class SettingController extends Controller
             'editor_in_chief_name' => 'required|string|max:255',
             'editor_signature' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'sinta_rank' => 'nullable|integer|min:0|max:6',
+            'smtp_host' => 'nullable|string|max:255',
+            'smtp_port' => 'nullable|string|max:10',
+            'smtp_encryption' => 'nullable|string|in:tls,ssl,null',
+            'smtp_username' => 'nullable|string|max:255',
+            'smtp_password' => 'nullable|string|max:255',
+            'smtp_from_address' => 'nullable|email|max:255',
+            'smtp_from_name' => 'nullable|string|max:255',
         ]);
 
         $settings = $journal->settings ?? [];
         $settings['editor_in_chief_name'] = $request->editor_in_chief_name;
         $settings['sinta_rank'] = $request->sinta_rank;
+        
+        // SMTP Settings
+        if ($request->filled('smtp_host')) {
+            $settings['smtp_host'] = $request->smtp_host;
+            $settings['smtp_port'] = $request->smtp_port;
+            $settings['smtp_encryption'] = $request->smtp_encryption === 'null' ? null : $request->smtp_encryption;
+            $settings['smtp_username'] = $request->smtp_username;
+            $settings['smtp_password'] = $request->smtp_password;
+            $settings['smtp_from_address'] = $request->smtp_from_address;
+            $settings['smtp_from_name'] = $request->smtp_from_name;
+        }
 
         if ($request->hasFile('editor_signature')) {
             // Delete old signature if exists

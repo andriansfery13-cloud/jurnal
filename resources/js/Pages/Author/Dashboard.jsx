@@ -1,9 +1,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
-import { DocumentTextIcon, DocumentPlusIcon, ClockIcon, CheckCircleIcon, XCircleIcon, EyeIcon } from '@heroicons/react/24/outline';
+import { DocumentTextIcon, DocumentPlusIcon, ClockIcon, CheckCircleIcon, XCircleIcon, EyeIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import Badge from '@/Components/ui/Badge';
 import { statusLabel, formatDate } from '@/lib/utils';
+import { usePage } from '@inertiajs/react';
 
 export default function AuthorDashboard({ stats, recentSubmissions }) {
     const statCards = [
@@ -13,8 +14,39 @@ export default function AuthorDashboard({ stats, recentSubmissions }) {
         { label: 'Published', value: stats.published, icon: EyeIcon, color: 'from-gold-400 to-gold-600' },
     ];
 
+    const { auth, flash } = usePage().props;
+    const isUnverified = auth?.user && auth.user.email_verified_at === null;
+
     return (
         <AuthenticatedLayout title="Author Dashboard">
+            {/* Email Verification Banner */}
+            {isUnverified && (
+                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mb-6 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                        <ExclamationTriangleIcon className="w-6 h-6 text-amber-500 shrink-0" />
+                        <div>
+                            <h4 className="text-amber-500 font-medium text-sm">Please verify your email address</h4>
+                            <p className="text-gray-400 text-xs mt-1">You must verify your email address before you can submit or review manuscripts.</p>
+                        </div>
+                    </div>
+                    <Link 
+                        href={route('verification.send')} 
+                        method="post" 
+                        as="button" 
+                        className="btn-secondary text-xs shrink-0 whitespace-nowrap"
+                    >
+                        Resend Verification Email
+                    </Link>
+                </motion.div>
+            )}
+            
+            {/* Flash Status (e.g. verification link sent) */}
+            {flash?.status === 'verification-link-sent' && (
+                <div className="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-medium">
+                    A new verification link has been sent to the email address you provided during registration.
+                </div>
+            )}
+
             {/* Stats Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 {statCards.map((card, i) => (

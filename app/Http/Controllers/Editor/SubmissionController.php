@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Issue;
 use App\Jobs\GenerateLoaJob;
 use App\Jobs\GenerateDoiJob;
+use App\Notifications\ArticlePublishedNotification;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -128,6 +129,13 @@ class SubmissionController extends Controller
         // Dispatch DOI registration to Crossref if a DOI is provided
         if ($request->doi) {
             GenerateDoiJob::dispatch($submission);
+        }
+
+        // Send Email Notification to the Author
+        try {
+            $submission->user->notify(new ArticlePublishedNotification($submission));
+        } catch (\Exception $e) {
+            // Log or ignore if email fails (e.g. SMTP not configured)
         }
 
         RevisionHistory::create([

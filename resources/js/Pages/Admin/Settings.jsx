@@ -4,7 +4,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Button from '@/Components/ui/Button';
 import Input from '@/Components/ui/Input';
 import { Transition } from '@headlessui/react';
-import { Cog6ToothIcon, DocumentCheckIcon, CloudArrowUpIcon } from '@heroicons/react/24/outline';
+import { Cog6ToothIcon, DocumentCheckIcon, CloudArrowUpIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
 
 export default function Settings({ journal }) {
     const fileInput = useRef();
@@ -19,6 +19,13 @@ export default function Settings({ journal }) {
         publisher: journal.publisher || '',
         editor_in_chief_name: journal.settings?.editor_in_chief_name || '',
         sinta_rank: journal.settings?.sinta_rank || 0,
+        smtp_host: journal.settings?.smtp_host || '',
+        smtp_port: journal.settings?.smtp_port || '',
+        smtp_encryption: journal.settings?.smtp_encryption || 'null',
+        smtp_username: journal.settings?.smtp_username || '',
+        smtp_password: journal.settings?.smtp_password || '',
+        smtp_from_address: journal.settings?.smtp_from_address || '',
+        smtp_from_name: journal.settings?.smtp_from_name || '',
         editor_signature: null,
     });
 
@@ -150,6 +157,82 @@ export default function Settings({ journal }) {
                                     {errors.editor_signature && <p className="mt-2 text-sm text-red-400">{errors.editor_signature}</p>}
                                     <p className="text-xs text-gray-500 mt-2">Recommended: PNG image with transparent background.</p>
                                 </div>
+                            </div>
+                        </div>
+
+                        {/* SMTP Email Settings */}
+                        <div className="space-y-6 pt-6 border-t border-white/10">
+                            <h3 className="text-lg font-semibold text-white border-b border-white/10 pb-2 flex items-center gap-2">
+                                <EnvelopeIcon className="w-5 h-5 text-gold-400" />
+                                SMTP & Email Settings
+                            </h3>
+                            <p className="text-sm text-gray-400">
+                                Configure the SMTP server details to enable email notifications (Publishing, Verification, Password Reset). Leave blank to disable emails.
+                            </p>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <Input 
+                                    label="SMTP Host" 
+                                    value={data.smtp_host} 
+                                    onChange={e => setData('smtp_host', e.target.value)} 
+                                    error={errors.smtp_host}
+                                    placeholder="e.g. smtp.gmail.com"
+                                />
+                                
+                                <div className="grid grid-cols-2 gap-4">
+                                    <Input 
+                                        label="SMTP Port" 
+                                        value={data.smtp_port} 
+                                        onChange={e => setData('smtp_port', e.target.value)} 
+                                        error={errors.smtp_port}
+                                        placeholder="e.g. 465 or 587"
+                                    />
+                                    <div className="space-y-1.5">
+                                        <label className="block text-sm font-medium text-gray-300">Encryption</label>
+                                        <select 
+                                            value={data.smtp_encryption} 
+                                            onChange={e => setData('smtp_encryption', e.target.value)} 
+                                            className="input-premium w-full"
+                                        >
+                                            <option value="null">None</option>
+                                            <option value="tls">TLS</option>
+                                            <option value="ssl">SSL</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <Input 
+                                    label="SMTP Username" 
+                                    value={data.smtp_username} 
+                                    onChange={e => setData('smtp_username', e.target.value)} 
+                                    error={errors.smtp_username}
+                                    placeholder="Your email address"
+                                />
+
+                                <Input 
+                                    label="SMTP Password / App Password" 
+                                    type="password"
+                                    value={data.smtp_password} 
+                                    onChange={e => setData('smtp_password', e.target.value)} 
+                                    error={errors.smtp_password}
+                                    placeholder="••••••••••••"
+                                />
+
+                                <Input 
+                                    label="From Email Address" 
+                                    value={data.smtp_from_address} 
+                                    onChange={e => setData('smtp_from_address', e.target.value)} 
+                                    error={errors.smtp_from_address}
+                                    placeholder="e.g. no-reply@journal.com"
+                                />
+
+                                <Input 
+                                    label="From Name" 
+                                    value={data.smtp_from_name} 
+                                    onChange={e => setData('smtp_from_name', e.target.value)} 
+                                    error={errors.smtp_from_name}
+                                    placeholder="e.g. Jurnal Ilmiah System"
+                                />
                             </div>
                         </div>
 
