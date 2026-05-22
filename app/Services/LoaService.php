@@ -24,9 +24,8 @@ class LoaService
         
         // Generate QR Code for verification
         $verificationUrl = url("/verify-loa/{$certificateNumber}");
-        $qrCodeSvg = QrCode::format('svg')->size(100)->generate($verificationUrl);
-        // Cast to string to ensure it's a raw string
-        $qrCodeSvg = (string) $qrCodeSvg;
+        $qrCodeSvg = (string) QrCode::format('svg')->size(100)->generate($verificationUrl);
+        $qrCodeBase64 = base64_encode($qrCodeSvg);
 
         // Load View and pass data
         $journal = \App\Models\Journal::first() ?? new \App\Models\Journal();
@@ -46,7 +45,7 @@ class LoaService
         $pdf = Pdf::loadView('pdf.loa', [
             'submission' => $submission,
             'certificateNumber' => $certificateNumber,
-            'qrCode' => $qrCodeSvg,
+            'qrCode' => $qrCodeBase64,
             'journal' => $journal,
             'editorName' => $editorName,
             'signatureBase64' => $signatureBase64,

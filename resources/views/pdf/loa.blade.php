@@ -249,9 +249,7 @@
         <table class="footer-table">
             <tr>
                 <td class="qr-section">
-                    <div class="qr-image" style="width: 100px; height: 100px; display: inline-block;">
-                        {!! $qrCode !!}
-                    </div>
+                    <img src="data:image/svg+xml;base64,{{ $qrCode }}" alt="Verification QR Code" class="qr-image" style="width: 100px; height: 100px;">
                     <div class="qr-text">Scan to verify document authenticity</div>
                 </td>
                 <td class="signature-section">
