@@ -24,12 +24,8 @@ class GenerateLoaJob implements ShouldQueue
 
     public function handle(LoaService $loaService)
     {
-        try {
-            Log::info("Starting LOA generation job for Submission ID: {$this->submission->id}");
-            $loaService->generate($this->submission);
-            Log::info("Successfully generated LOA for Submission ID: {$this->submission->id}");
-        } catch (\Exception $e) {
-            Log::error("Failed to generate LOA for Submission ID: {$this->submission->id}. Error: " . $e->getMessage());
-        }
+        Log::info("Starting LOA generation job for Submission ID: {$this->submission->id}");
+        $loaService->generate($this->submission);
+        Log::info("Successfully generated LOA for Submission ID: {$this->submission->id}");
     }
 }
