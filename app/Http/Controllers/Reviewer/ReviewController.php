@@ -12,7 +12,7 @@ class ReviewController extends Controller
 {
     public function show(ReviewAssignment $review, Request $request)
     {
-        if ($review->reviewer_id !== $request->user()->id) {
+        if ($review->reviewer_id != $request->user()->id) {
             abort(403);
         }
 
@@ -25,7 +25,7 @@ class ReviewController extends Controller
 
     public function respond(ReviewAssignment $review, Request $request)
     {
-        if ($review->reviewer_id !== $request->user()->id) abort(403);
+        if ($review->reviewer_id != $request->user()->id) abort(403);
 
         $request->validate(['response' => 'required|in:accepted,declined']);
         $review->update(['status' => $request->response]);
@@ -35,7 +35,7 @@ class ReviewController extends Controller
 
     public function submit(ReviewAssignment $review, Request $request)
     {
-        if ($review->reviewer_id !== $request->user()->id) abort(403);
+        if ($review->reviewer_id != $request->user()->id) abort(403);
 
         $request->validate([
             'recommendation' => 'required|in:accept,minor_revision,major_revision,reject',

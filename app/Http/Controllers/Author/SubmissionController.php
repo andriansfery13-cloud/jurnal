@@ -102,7 +102,7 @@ class SubmissionController extends Controller
 
     public function show(Submission $submission, Request $request)
     {
-        if ($submission->user_id !== $request->user()->id) {
+        if ($submission->user_id != $request->user()->id) {
             abort(403);
         }
 
@@ -138,7 +138,7 @@ class SubmissionController extends Controller
 
     public function revise(Submission $submission, Request $request)
     {
-        if ($submission->user_id !== $request->user()->id || $submission->status !== 'revision_required') {
+        if ($submission->user_id != $request->user()->id || $submission->status !== 'revision_required') {
             abort(403);
         }
 
