@@ -1,2 +1,4 @@
 User-agent: *
 Disallow:
+
+Sitemap: https://ipajournal.my.id/sitemap.xml

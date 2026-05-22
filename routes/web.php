@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\SettingController as AdminSettingController;
 use App\Http\Controllers\LoaController;
 use App\Http\Controllers\PublicAuthorController;
 use App\Http\Controllers\PublicSubjectController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 
 // ============================================
@@ -33,6 +34,8 @@ Route::get('/subjects/{subject:slug}', [PublicSubjectController::class, 'show'])
 Route::get('/authors', [PublicAuthorController::class, 'index'])->name('authors.index');
 Route::get('/authors/{author}', [PublicAuthorController::class, 'show'])->name('authors.show');
 Route::get('/page/{slug}', [StaticPageController::class, 'show'])->name('page.show');
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 // Premium: LOA Verification
 Route::get('/verify-loa/{certificate}', [LoaController::class, 'verify'])
