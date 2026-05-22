@@ -3,7 +3,7 @@ import Navbar from '@/Components/Landing/Navbar';
 import Footer from '@/Components/Landing/Footer';
 
 export default function GuestLayout({ children, title, journal, meta = {} }) {
-    const journalName = journal?.name || 'Jurnal Ilmiah';
+    const journalName = journal?.name || 'Indonesia Public Administration Journal';
 
     return (
         <div className="min-h-screen bg-navy-950 text-white">

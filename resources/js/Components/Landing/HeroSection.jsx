@@ -121,7 +121,7 @@ export default function HeroSection({ journal, stats }) {
                                     </div>
                                     
                                     <h3 className="text-xl font-bold text-white mb-2">
-                                        {journal?.name || 'Jurnal Ilmiah'}
+                                        {journal?.name || 'Indonesia Public Administration Journal'}
                                     </h3>
                                     
                                     <p className="text-xs text-gray-500 uppercase tracking-widest mb-4">

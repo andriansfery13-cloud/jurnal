@@ -7,7 +7,7 @@ import {
 } from '@heroicons/react/24/outline';
 
 export default function Footer({ journal }) {
-    const journalName = journal?.name || 'Jurnal Ilmiah';
+    const journalName = journal?.name || 'Indonesia Public Administration Journal';
     const currentYear = new Date().getFullYear();
 
     const quickLinks = [

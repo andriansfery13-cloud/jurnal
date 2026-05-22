@@ -47,7 +47,7 @@ export default function Navbar() {
         { name: 'Contact', href: '/page/contact' },
     ];
 
-    const journalName = journal?.name || 'Jurnal Ilmiah';
+    const journalName = journal?.name || 'Indonesia Public Administration Journal';
 
     return (
         <>

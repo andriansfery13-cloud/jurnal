@@ -5,7 +5,7 @@ import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot, hydrateRoot } from 'react-dom/client';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Jurnal Ilmiah';
+const appName = import.meta.env.VITE_APP_NAME || 'Indonesia Public Administration Journal';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
